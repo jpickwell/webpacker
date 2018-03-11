@@ -10,12 +10,12 @@ const configPath = resolve('config', 'webpacker.yml')
 
 const getDefaultConfig = () => {
   const defaultConfig = safeLoad(readFileSync(defaultConfigPath), 'utf8')
-  return defaultConfig[env] || defaultConfig.default
+  return defaultConfig[env.railsEnv] || defaultConfig.production
 }
 
 const getConfig = () => {
   const defaults = getDefaultConfig()
-  const app = safeLoad(readFileSync(configPath), 'utf8')[env]
+  const app = safeLoad(readFileSync(configPath), 'utf8')[env.railsEnv]
 
   if (isArray(app.extensions) && app.extensions.length) {
     delete defaults.extensions
